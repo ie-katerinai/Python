@@ -25,12 +25,8 @@ def find_contact(name):
 
 def add_contact(name):
     with open('/Users/evahome/Documents/Python/HomeWorks/HomeWork_8/Spravochnik/file.txt', 'r', encoding='utf-8') as data:
-        # data.write('\n')
-        # data.write(name)
         current_file = data.read()
         current_file = current_file + '\n' + '\n'+ name
-        # current_file.write('\n')
-        # current_file.write(name)
     with open ('/Users/evahome/Documents/Python/HomeWorks/HomeWork_8/Spravochnik/file.txt', 'w', encoding='utf-8') as data:
         data.write(current_file)
     
@@ -43,20 +39,14 @@ def change_contact(old_name, new_name):
         data.write(new_file)
 
 def delete_contact(name):
-    # with open('/Users/evahome/Documents/Python/HomeWorks/HomeWork_8/Spravochnik/file.txt', 'w', encoding='utf-8') as data:
-    # lines = data.readlines()
-    # pattern = re.compile(re.escape(name))
-    # with open('/Users/evahome/Documents/Python/HomeWorks/HomeWork_8/Spravochnik/file.txt', 'w', encoding='utf-8') as data:
-    #     for line in lines:
-    #         result = pattern.search(line)
-    #         if result is None:
-    #             data.write(line)
     with open ('/Users/evahome/Documents/Python/HomeWorks/HomeWork_8/Spravochnik/file.txt', 'r', encoding='utf-8') as data:
-        current_file = data.read()
-        new_file = current_file.replace(old_name, new_name)
+        file = data.readlines()
+        new_file = ''
+        for line in file:
+            if ((line.find(name)) == -1):
+                new_file = new_file + line
     with open ('/Users/evahome/Documents/Python/HomeWorks/HomeWork_8/Spravochnik/file.txt', 'w', encoding='utf-8') as data:
         data.write(new_file)
-
 
 def main_menu(numb):
     if numb == 1:
@@ -71,9 +61,10 @@ def main_menu(numb):
         name_1 = input('Чей контакт вы хотите изменить? ')
         name_2 = input('Введите изменения: ')
         change_contact(name_1, name_2)
-    # elif numb == 5:
-    #     name = input('Чей контакт вы хотели бы удалить? ')
-    #     delete_contact(name)
+    elif numb == 5:
+        name = input('Чей контакт вы хотели бы удалить? ')
+        delete_contact(name)
+        
 
 while True:
     numb = int(input('Введите 1 - для печати всего справочника; 2 - для поиска контакта; '
